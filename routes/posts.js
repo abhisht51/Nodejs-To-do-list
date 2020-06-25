@@ -1,9 +1,11 @@
 const express = require('express');
 
 const Post = require('../models/Post');
+const verify = require('./TokenVerification');
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+// Private route for logged in users 
+router.get('/',verify, async (req, res) => {
     try {
         const posts = await Post.find();
         res.status(200).json(posts);
